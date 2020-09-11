@@ -2,48 +2,48 @@ package com.qa.ims.persistence.domain;
 
 public class Customer {
 
-	private Long id;
-	private String firstName;
-	private String surname;
+	private Long customer_id;
+	private String name;
+	private String address;
 
-	public Customer(String firstName, String surname) {
-		this.firstName = firstName;
-		this.surname = surname;
+	public Customer(String name, String address) {
+		this.name = name;
+		this.address = address;
 	}
 
-	public Customer(Long id, String firstName, String surname) {
-		this.id = id;
-		this.firstName = firstName;
-		this.surname = surname;
+	public Customer(Long customer_id, String name, String address) {
+		this.customer_id = customer_id;
+		this.name = name;
+		this.address = address;
 	}
 
 	public Long getId() {
-		return id;
+		return customer_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId(Long customer_id) {
+		this.customer_id = customer_id;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getSurname() {
-		return surname;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setSurname(String surname) {
-		this.surname = surname;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "id:" + id + " first name:" + firstName + " surname:" + surname;
+		return "customer_id:" + customer_id + " name:" + name + " address:" + address;
 	}
 
 	@Override
@@ -55,20 +55,20 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (firstName == null) {
-			if (other.firstName != null)
+		if (name == null) {
+			if (other.name != null)
 				return false;
-		} else if (!firstName.equals(other.firstName))
+		} else if (!name.equals(other.name))
 			return false;
-		if (id == null) {
-			if (other.id != null)
+		if (customer_id == null) {
+			if (other.customer_id != null)
 				return false;
-		} else if (!id.equals(other.id))
+		} else if (!customer_id.equals(other.customer_id))
 			return false;
-		if (surname == null) {
-			if (other.surname != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!surname.equals(other.surname))
+		} else if (!address.equals(other.address))
 			return false;
 		return true;
 	}
