@@ -6,7 +6,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.qa.ims.persistence.dao.ItemDAO;
-import com.qa.ims.persistence.domain.Customer;
 import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.utils.Utils;
 
@@ -73,9 +72,16 @@ public class ItemController implements CrudController<Item> {
 		return item;
 	}
 
+	/**
+	 * Deletes an existing item by the id of the item
+	 * 
+	 * @return
+	 */
 	@Override
 	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+		LOGGER.info("Please enter the id of the item you would like to delete");
+		Long item_id = utils.getLong();
+		LOGGER.info("item Deleted");
+		return itemDAO.delete(item_id);
 	}
 }

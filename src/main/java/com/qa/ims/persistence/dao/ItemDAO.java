@@ -123,7 +123,7 @@ public class ItemDAO implements Dao<Item> {
 	public int delete(long item_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			return statement.executeUpdate("delete from customers where item_id = " + item_id);
+			return statement.executeUpdate("delete from items where item_id = " + item_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
