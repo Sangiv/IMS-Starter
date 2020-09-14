@@ -38,10 +38,11 @@ public class Utils {
 	}
 
 	public Double getDouble() {
-		String input = getString();
+		String input = null;
 		Double doubleInput = null;
 		do {
 			try {
+				input = getString();
 				doubleInput = Double.parseDouble(input);
 			} catch (NumberFormatException nfe) {
 				LOGGER.info("Error - Please enter a number");
@@ -51,10 +52,11 @@ public class Utils {
 	}
 
 	public Integer getInteger() {
-		String input = getString();
+		String input = null;
 		Integer intInput = null;
 		do {
 			try {
+				input = getString();
 				intInput = Integer.parseInt(input);
 			} catch (NumberFormatException nfe) {
 				LOGGER.info("Error - Please enter a number");
