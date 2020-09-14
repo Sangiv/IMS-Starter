@@ -27,7 +27,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Reads all items to the logger
+	 * Reads all orders to the logger
 	 */
 	@Override
 	public List<Order> readAll() {
@@ -39,7 +39,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Creates an item by taking in user input
+	 * Creates an order by taking in user input
 	 */
 	@Override
 	public Order create() {
@@ -53,7 +53,7 @@ public class OrderController implements CrudController<Order> {
 	}
 
 	/**
-	 * Updates an existing item by taking in user input
+	 * Updates an existing order by taking in user input
 	 */
 	@Override
 	public Order update() {
