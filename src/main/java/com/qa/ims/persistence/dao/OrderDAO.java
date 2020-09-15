@@ -18,7 +18,6 @@ import com.qa.ims.utils.DBUtils;
 public class OrderDAO implements Dao<Order> {
 
 	private ItemDAO itemDAO;
-	private Item item;
 
 	public OrderDAO(ItemDAO itemDAO) {
 		super();
@@ -141,10 +140,8 @@ public class OrderDAO implements Dao<Order> {
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-//			statement.executeUpdate("update orders set customer_id ='" + order.getCustomerId() + "', date_placed ='"
-//					+ order.getDatePlaced() + "' where order_id =" + order.getId());
-			statement.executeUpdate(
-					"insert into orderitems values('" + order.getId() + "','" + this.item.getId() + "')");
+			statement.executeUpdate("update orders set customer_id ='" + order.getCustomerId() + "', date_placed ='"
+					+ order.getDatePlaced() + "' where order_id =" + order.getId());
 			return readOrder(order.getId());
 		} catch (Exception e) {
 			LOGGER.debug(e);
@@ -156,7 +153,21 @@ public class OrderDAO implements Dao<Order> {
 	public Order updateAdd(Long order_id, Long item_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("insert into orderitems values('" + order_id + "','" + item_id + "')");
+			statement.executeUpdate(
+					"insert into orderitems(order_id, item_id) values('" + order_id + "','" + item_id + "')");
+			return readOrder(order_id);
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public Order updateRemove(Long order_id, Long item_id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate(
+					"delete from orderitems where order_id = " + order_id + " and item_id = " + item_id + " limit 1");
 			return readOrder(order_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
