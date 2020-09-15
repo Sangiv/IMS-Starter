@@ -166,8 +166,7 @@ public class OrderDAO implements Dao<Order> {
 	public Order updateRemove(Long order_id, Long item_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate(
-					"delete from orderitems where order_id = " + order_id + " and item_id = " + item_id + " limit 1");
+			statement.executeUpdate("delete from orderitems where order_id = " + order_id + " and item_id = " + item_id + " limit 1");
 			return readOrder(order_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
