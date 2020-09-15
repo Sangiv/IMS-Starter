@@ -20,6 +20,16 @@ public class Item {
 		this.stock = stock;
 	}
 
+	public Item(Long item_id, String title, double price) {
+		this.item_id = item_id;
+		this.title = title;
+		this.price = price;
+	}
+
+	public Item(Long item_id) {
+		this.item_id = item_id;
+	}
+
 	public Long getId() {
 		return item_id;
 	}

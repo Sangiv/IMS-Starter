@@ -1,23 +1,25 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.List;
+
 public class Order {
 
 	private Long order_id;
 	private Long customer_id;
 	private String date_placed;
-	private Long item_id;
-	private String title;
-	private double price;
+	private List<Item> items;
+
+	public Order(Long order_id, Long customer_id, String date_placed, List<Item> items) {
+		super();
+		this.order_id = order_id;
+		this.customer_id = customer_id;
+		this.date_placed = date_placed;
+		this.items = items;
+	}
 
 	public Order(Long customer_id, String date_placed) {
 		this.customer_id = customer_id;
 		this.date_placed = date_placed;
-	}
-	
-	public Order(Long item_id, String title, double price) {
-		this.item_id = item_id;
-		this.title = title;
-		this.price = price;
 	}
 
 	public Order(Long order_id, Long customer_id, String date_placed) {
@@ -49,34 +51,19 @@ public class Order {
 	public void setDatePlaced(String date_placed) {
 		this.date_placed = date_placed;
 	}
-	
-	public Long getItemId() {
-		return item_id;
+
+	public List<Item> getItems() {
+		return items;
 	}
 
-	public void setItemId(Long item_id) {
-		this.item_id = item_id;
-	}
-	
-	public String getTitle() {
-		return title;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	
 	@Override
 	public String toString() {
-		return "order_id:" + order_id + " customer:" + customer_id + " date placed:" + date_placed;
+		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", date_placed=" + date_placed
+				+ ", items=" + items + "]";
 	}
 
 	@Override

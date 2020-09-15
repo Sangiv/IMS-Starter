@@ -6,14 +6,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class OrderDAO implements Dao<Order> {
+
+	private ItemDAO itemDAO;
+
+	public OrderDAO(ItemDAO itemDAO) {
+		super();
+		this.itemDAO = itemDAO;
+	}
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -22,7 +31,8 @@ public class OrderDAO implements Dao<Order> {
 		Long order_id = resultSet.getLong("order_id");
 		Long customer_id = resultSet.getLong("customer_id");
 		String date_placed = resultSet.getString("date_placed");
-		return new Order(order_id, customer_id, date_placed);
+		List<Item> items = readItems(order_id);
+		return new Order(order_id, customer_id, date_placed, items);
 	}
 
 	/**
@@ -46,6 +56,26 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return new ArrayList<>();
 	}
+
+//	read item_id block
+
+	public List<Item> readItems(Long order_id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet2 = statement
+						.executeQuery("select item_id from orderitems where order_id = " + order_id);) {
+			ArrayList<Long> items = new ArrayList<>();
+			while (resultSet2.next()) {
+				items.add(resultSet2.getLong(1));
+			}
+			return items.stream().map(this.itemDAO::readItem).collect(Collectors.toList());
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+//read item_id block
 
 	public Order readLatest() {
 		try (Connection connection = DBUtils.getInstance().getConnection();
@@ -95,8 +125,8 @@ public class OrderDAO implements Dao<Order> {
 	/**
 	 * Updates a n order in the database
 	 * 
-	 * @param order - takes in an order object, the id field will be used to
-	 *                 update that order in the database
+	 * @param order - takes in an order object, the id field will be used to update
+	 *              that order in the database
 	 * @return
 	 */
 	@Override
