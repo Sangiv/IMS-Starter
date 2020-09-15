@@ -18,11 +18,18 @@ import com.qa.ims.utils.DBUtils;
 public class OrderDAO implements Dao<Order> {
 
 	private ItemDAO itemDAO;
+	private Item item;
 
 	public OrderDAO(ItemDAO itemDAO) {
 		super();
 		this.itemDAO = itemDAO;
 	}
+
+//	public OrderDAO(ItemDAO itemDAO, Item item) {
+//		super();
+//		this.itemDAO = itemDAO;
+//		this.item = item;
+//	}
 
 	public static final Logger LOGGER = LogManager.getLogger();
 
@@ -134,9 +141,23 @@ public class OrderDAO implements Dao<Order> {
 	public Order update(Order order) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("update orders set customer_id ='" + order.getCustomerId() + "', date_placed ='"
-					+ order.getDatePlaced() + "' where order_id =" + order.getId());
+//			statement.executeUpdate("update orders set customer_id ='" + order.getCustomerId() + "', date_placed ='"
+//					+ order.getDatePlaced() + "' where order_id =" + order.getId());
+			statement.executeUpdate(
+					"insert into orderitems values('" + order.getId() + "','" + this.item.getId() + "')");
 			return readOrder(order.getId());
+		} catch (Exception e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return null;
+	}
+
+	public Order updateAdd(Long order_id, Long item_id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();) {
+			statement.executeUpdate("insert into orderitems values('" + order_id + "','" + item_id + "')");
+			return readOrder(order_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
 			LOGGER.error(e.getMessage());
