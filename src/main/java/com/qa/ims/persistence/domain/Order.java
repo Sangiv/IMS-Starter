@@ -8,6 +8,16 @@ public class Order {
 	private Long customer_id;
 	private String date_placed;
 	private List<Item> items;
+	private List<Double> total;
+
+	public Order(Long order_id, Long customer_id, String date_placed, List<Item> items, List<Double> total) {
+		super();
+		this.order_id = order_id;
+		this.customer_id = customer_id;
+		this.date_placed = date_placed;
+		this.items = items;
+		this.total = total;
+	}
 
 	public Order(Long order_id, Long customer_id, String date_placed, List<Item> items) {
 		super();
@@ -60,10 +70,18 @@ public class Order {
 		this.items = items;
 	}
 
+	public List<Double> getTotal() {
+		return total;
+	}
+
+	public void setTotal(List<Double> total) {
+		this.total = total;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", date_placed=" + date_placed
-				+ ", items=" + items + "]";
+				+ ", items=" + items + ", total=" + total + "]";
 	}
 
 	@Override

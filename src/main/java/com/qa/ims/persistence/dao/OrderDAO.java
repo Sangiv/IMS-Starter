@@ -38,7 +38,8 @@ public class OrderDAO implements Dao<Order> {
 		Long customer_id = resultSet.getLong("customer_id");
 		String date_placed = resultSet.getString("date_placed");
 		List<Item> items = readItems(order_id);
-		return new Order(order_id, customer_id, date_placed, items);
+		List<Double> total = readTotal(order_id);
+		return new Order(order_id, customer_id, date_placed, items, total);
 	}
 
 	/**
@@ -62,6 +63,28 @@ public class OrderDAO implements Dao<Order> {
 		}
 		return new ArrayList<>();
 	}
+
+//	total cost block
+
+	public List<Double> readTotal(Long order_id) {
+		try (Connection connection = DBUtils.getInstance().getConnection();
+				Statement statement = connection.createStatement();
+				ResultSet resultSet3 = statement.executeQuery(
+						"select sum(price) from items where item_id in (select item_id from orderitems where order_id = "
+								+ order_id + ")");) {
+			ArrayList<Double> total = new ArrayList<>();
+			while (resultSet3.next()) {
+				total.add(resultSet3.getDouble(1));
+			}
+			return total.stream().collect(Collectors.toList());
+		} catch (SQLException e) {
+			LOGGER.debug(e);
+			LOGGER.error(e.getMessage());
+		}
+		return new ArrayList<>();
+	}
+
+//	total cost block
 
 //	read item_id block
 
@@ -166,7 +189,8 @@ public class OrderDAO implements Dao<Order> {
 	public Order updateRemove(Long order_id, Long item_id) {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();) {
-			statement.executeUpdate("delete from orderitems where order_id = " + order_id + " and item_id = " + item_id + " limit 1");
+			statement.executeUpdate(
+					"delete from orderitems where order_id = " + order_id + " and item_id = " + item_id + " limit 1");
 			return readOrder(order_id);
 		} catch (Exception e) {
 			LOGGER.debug(e);
