@@ -9,13 +9,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.qa.ims.persistence.domain.Item;
 import com.qa.ims.persistence.domain.Order;
 import com.qa.ims.utils.DBUtils;
 
 public class OrderDAOTest {
 
-	private ItemDAO itemDAO;
-	private final OrderDAO DAO = new OrderDAO(itemDAO);
+	private final OrderDAO DAO = new OrderDAO(new ItemDAO());
+	private Order testOrder;
 
 	@BeforeClass
 	public static void init() {
@@ -25,36 +26,43 @@ public class OrderDAOTest {
 	@Before
 	public void setup() {
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
+		List<Item> items = new ArrayList<>();
+		List<Double> total = new ArrayList<>();
+		items.add(new Item(4L, "guitar", 305.90, 5));
+		total.add(305.90);
+		testOrder = new Order(5L, 5L, "2020-09-16", items, total);
 	}
 
 	@Test
 	public void testCreate() {
-		final Order created = new Order(7L, "Piano", 899.99, 3);
+		final Order created = new Order(5L, 5L, "2020-09-16");
 		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
 	public void testReadAll() {
 		List<Order> expected = new ArrayList<>();
-		expected.add(new Order(4L, "guitar", 305.90, 5));
+		expected.add(testOrder);
 		assertEquals(expected, DAO.readAll());
 	}
 
 	@Test
 	public void testReadLatest() {
-		assertEquals(new Order(4L, "guitar", 305.90, 5), DAO.readLatest());
+		assertEquals(testOrder, DAO.readLatest());
 	}
 
 	@Test
-	public void testRead() {
-		final long ID = 4L;
-		assertEquals(new Order(ID, "guitar", 305.90, 5), DAO.readItem(ID));
+	public void testReadOrder() {
+		final long ID = 1L;
+		assertEquals(new Order(ID, 5L, "2020-09-14"), DAO.readOrder(ID));
 	}
 
 	@Test
-	public void testUpdate() {
-		final Order updated = new Order(4L, "Piano", 899.99, 3);
-		assertEquals(updated, DAO.update(updated));
+	public void testUpdateAdd() {
+		final long ORDERID = 6L;
+		final long ITEMID = 7L;
+		final Order updated = new Order(6L, 2L, "2020-09-16");
+		assertEquals(updated, DAO.updateAdd(ORDERID, ITEMID));
 
 	}
 
