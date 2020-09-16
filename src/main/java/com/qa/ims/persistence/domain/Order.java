@@ -80,8 +80,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [order_id=" + order_id + ", customer_id=" + customer_id + ", date_placed=" + date_placed
-				+ ", items=" + items + ", total=" + total + "]";
+		return "Order: [order_id=" + order_id + ", customer_id=" + customer_id + ", date_placed=" + date_placed + ","
+				+ "\n" + "items: " + items + "," + "\n" + "total: " + total + "]";
 	}
 
 	@Override

@@ -53,7 +53,7 @@ public class Item {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public int getStock() {
 		return stock;
 	}
@@ -64,7 +64,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "item_id:" + item_id + " title:" + title + " price:" + price + " stock:" + stock;
+		return "item_id:" + item_id + "  title:" + title + "  price:" + price + "  stock:" + stock;
 	}
 
 	@Override

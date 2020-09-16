@@ -34,6 +34,7 @@ public class OrderController implements CrudController<Order> {
 		List<Order> orders = orderDAO.readAll();
 		for (Order order : orders) {
 			LOGGER.info(order.toString());
+			LOGGER.info("");
 		}
 		return orders;
 	}
