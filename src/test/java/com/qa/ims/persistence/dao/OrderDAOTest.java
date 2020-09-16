@@ -15,7 +15,8 @@ import com.qa.ims.utils.DBUtils;
 
 public class OrderDAOTest {
 
-	private final OrderDAO DAO = new OrderDAO(new ItemDAO());
+	private ItemDAO itemDAO;
+	private final OrderDAO DAO = new OrderDAO(itemDAO);
 	private Order testOrder;
 
 	@BeforeClass
@@ -26,11 +27,12 @@ public class OrderDAOTest {
 	@Before
 	public void setup() {
 		DBUtils.getInstance().init("src/test/resources/sql-schema.sql", "src/test/resources/sql-data.sql");
+
 		List<Item> items = new ArrayList<>();
 		List<Double> total = new ArrayList<>();
 		items.add(new Item(4L, "guitar", 305.90, 5));
 		total.add(305.90);
-		testOrder = new Order(5L, 5L, "2020-09-16", items, total);
+		testOrder = new Order(4L, 1L, "2020-09-14");
 	}
 
 	@Test
