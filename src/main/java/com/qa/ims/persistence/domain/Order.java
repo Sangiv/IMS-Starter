@@ -6,9 +6,19 @@ public class Order {
 
 	private Long order_id;
 	private Long customer_id;
+	private Customer customer;
 	private String date_placed;
 	private List<Item> items;
 	private List<Double> total;
+
+	public Order(Long order_id, Customer customer, String date_placed, List<Item> items, List<Double> total) {
+		super();
+		this.order_id = order_id;
+		this.date_placed = date_placed;
+		this.items = items;
+		this.total = total;
+		this.customer = customer;
+	}
 
 	public Order(Long order_id, Long customer_id, String date_placed, List<Item> items, List<Double> total) {
 		super();
@@ -76,6 +86,14 @@ public class Order {
 
 	public void setTotal(List<Double> total) {
 		this.total = total;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
 	}
 
 	@Override
