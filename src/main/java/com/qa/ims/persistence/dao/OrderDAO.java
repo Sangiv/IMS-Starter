@@ -70,8 +70,8 @@ public class OrderDAO implements Dao<Order> {
 		try (Connection connection = DBUtils.getInstance().getConnection();
 				Statement statement = connection.createStatement();
 				ResultSet resultSet3 = statement.executeQuery(
-						"select sum(price) from items where item_id in (select item_id from orderitems where order_id = "
-								+ order_id + ")");) {
+						"select sum(price) from orderitems,items where orderitems.item_id = items.item_id and orderitems.order_id = "
+								+ order_id);) {
 			ArrayList<Double> total = new ArrayList<>();
 			while (resultSet3.next()) {
 				total.add(resultSet3.getDouble(1));
