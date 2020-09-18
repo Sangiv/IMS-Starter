@@ -1,4 +1,4 @@
-Coverage: 34%
+Coverage: 74%
 # Inventory Management System
 
 Inventory-management system capable of tracking & manipulating customer’s information, orders details and item data. Developed using mysql databases, Java as the programming language with JUnit and Mockito used for testing and maven as the build tool to package the application.
@@ -14,7 +14,7 @@ Eclipse: https://www.eclipse.org/downloads/packages/installer#:~:text=5%20Steps%
 
 MYSQL:
 https://www.mysql.com/downloads/
-
+once installed and set up, you will need to have a database called ims inorder for the application to work.
 
 ### Installing
 
