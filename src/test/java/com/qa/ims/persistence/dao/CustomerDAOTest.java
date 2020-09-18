@@ -28,15 +28,15 @@ public class CustomerDAOTest {
 
 	@Test
 	public void testCreate() {
-		final Customer created = new Customer(10L, "Eric", "100 Hazelmere Walk");
+		final Customer created = new Customer(10L, "Eric", "Manchester");
 		assertEquals(created, DAO.create(created));
 	}
 
 	@Test
 	public void testReadAll() {
 		List<Customer> expected = new ArrayList<>();
-		expected.add(new Customer(1L, "Gio", "98 Hazelmere Walk"));
-		expected.add(new Customer(2L, "Jeff", "Waco"));
+		expected.add(new Customer(1L, "Gio", "London"));
+		expected.add(new Customer(2L, "Jeff", "Texas"));
 		expected.add(new Customer(3L, "Cyrus", "Dallas"));
 
 		assertEquals(expected, DAO.readAll());
@@ -50,12 +50,12 @@ public class CustomerDAOTest {
 	@Test
 	public void testRead() {
 		final long ID = 2L;
-		assertEquals(new Customer(2L, "Jeff", "Waco"), DAO.readCustomer(ID));
+		assertEquals(new Customer(2L, "Jeff", "Texas"), DAO.readCustomer(ID));
 	}
 
 	@Test
 	public void testUpdate() {
-		final Customer updated = new Customer(3L, "Eric", "100 Hazelmere Walk");
+		final Customer updated = new Customer(3L, "Eric", "Manchester");
 		assertEquals(updated, DAO.update(updated));
 
 	}

@@ -29,8 +29,8 @@ public class OrderDAOTest {
 
 		List<Item> items = new ArrayList<>();
 		List<Double> total = new ArrayList<>();
-		items.add(new Item(3L, "obamaboe", 305.90, 5));
-		total.add(305.90);
+		items.add(new Item(3L, "oboe", 99.99, 7));
+		total.add(99.99);
 		testOrder = new Order(3L, 1L, "2020-09-14", items, total);
 	}
 
@@ -44,17 +44,17 @@ public class OrderDAOTest {
 	public void testReadAll() {
 		List<Order> expected = new ArrayList<>();
 		List<Item> items1 = new ArrayList<>();
-		items1.add(new Item(1L, "guitar", 305.90, 5));
-		items1.add(new Item(2L, "saxomophone", 305.90, 5));
+		items1.add(new Item(1L, "guitar", 305.90, 3));
+		items1.add(new Item(2L, "flute", 125.35, 12));
 		List<Double> total1 = new ArrayList<>();
-		total1.add(611.80);
+		total1.add(431.25);
 		expected.add(new Order(1L, 3L, "2020-09-14", items1, total1));
 
 		List<Item> items2 = new ArrayList<>();
-		items2.add(new Item(3L, "obamaboe", 305.90, 5));
-		items2.add(new Item(1L, "guitar", 305.90, 5));
+		items2.add(new Item(3L, "oboe", 99.99, 7));
+		items2.add(new Item(1L, "guitar", 305.90, 3));
 		List<Double> total2 = new ArrayList<>();
-		total2.add(611.80);
+		total2.add(405.89);
 		expected.add(new Order(2L, 2L, "2020-09-14", items2, total2));
 		expected.add(testOrder);
 		assertEquals(expected, DAO.readAll());
@@ -74,7 +74,7 @@ public class OrderDAOTest {
 	@Test
 	public void testReadTotal() {
 		List<Double> total = new ArrayList<>();
-		total.add(305.90D);
+		total.add(99.99D);
 		assertEquals(total, DAO.readTotal(3L));
 	}
 
@@ -89,10 +89,10 @@ public class OrderDAOTest {
 		final long ITEMID = 1L;
 		List<Item> items = new ArrayList<>();
 		items.add(new Item(1L, "guitar", 305.90, 5));
-		items.add(new Item(2L, "saxomophone", 305.90, 5));
+		items.add(new Item(2L, "flute", 125.35, 12));
 		items.add(new Item(1L, "guitar", 305.90, 5));
 		List<Double> total = new ArrayList<>();
-		total.add(917.70);
+		total.add(737.15);
 		final Order updated = new Order(1L, 3L, "2020-09-16", items, total);
 		assertEquals(updated, DAO.updateAdd(ORDERID, ITEMID));
 
@@ -103,7 +103,7 @@ public class OrderDAOTest {
 		final long ORDERID = 1L;
 		final long ITEMID = 1L;
 		List<Item> items = new ArrayList<>();
-		items.add(new Item(2L, "saxomophone", 305.90, 5));
+		items.add(new Item(2L, "flute", 125.35, 12));
 		List<Double> total = new ArrayList<>();
 		total.add(305.90);
 		final Order updated = new Order(1L, 3L, "2020-09-16", items, total);

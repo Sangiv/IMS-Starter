@@ -36,20 +36,20 @@ public class ItemDAOTest {
 	public void testReadAll() {
 		List<Item> expected = new ArrayList<>();
 		expected.add(new Item(1L, "guitar", 305.90, 5));
-		expected.add(new Item(2L, "saxomophone", 305.90, 5));
-		expected.add(new Item(3L, "obamaboe", 305.90, 5));
+		expected.add(new Item(2L, "flute", 125.35, 12));
+		expected.add(new Item(3L, "oboe", 99.99, 7));
 		assertEquals(expected, DAO.readAll());
 	}
 
 	@Test
 	public void testReadLatest() {
-		assertEquals(new Item(3L, "obamaboe", 305.90, 5), DAO.readLatest());
+		assertEquals(new Item(3L, "oboe", 99.99, 7), DAO.readLatest());
 	}
 
 	@Test
 	public void testRead() {
 		final long ID = 2L;
-		assertEquals(new Item(ID, "saxomophone", 305.90, 5), DAO.readItem(ID));
+		assertEquals(new Item(ID, "flute", 125.35, 12), DAO.readItem(ID));
 	}
 
 	@Test
